@@ -14,6 +14,12 @@ const $_documentContainer = document.createElement('template');
 $_documentContainer.innerHTML = `<dom-module id="shared-styles">
   <template>
     <style>
+      html, body {
+        width:  100%;
+        height: 100%;
+        margin: 0px;
+      }
+      
       .card {
         margin: 24px;
         padding: 16px;
@@ -39,6 +45,21 @@ $_documentContainer.innerHTML = `<dom-module id="shared-styles">
         margin: 16px 0;
         color: #212121;
         font-size: 22px;
+      }
+      
+      .node {
+        stroke-width: 2.5px;
+        stroke-opacity: .5;
+      }
+      
+      .link {
+        fill: none;
+        stroke: #bbb;
+      }
+      
+      .nodetext { 
+        pointer-events: none;
+        font: 10px sans-serif;
       }
     </style>
   </template>
