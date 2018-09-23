@@ -1,7 +1,7 @@
 import * as d3 from 'd3'
 import { scaleOrdinal } from 'd3-scale'
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
-import './shared-styles.js';
+// import './shared-styles.js';
 
 class MyView2 extends PolymerElement {
 
@@ -21,6 +21,20 @@ class MyView2 extends PolymerElement {
       <style include="shared-styles">
         :host {
           display: block;
+        }
+        .node {
+          stroke-width: 2.5px;
+          stroke-opacity: .5;
+        }
+        
+        .link {
+          fill: none;
+          stroke: #bbb;
+        }
+        
+        .nodetext { 
+          pointer-events: none;
+          font: 10px sans-serif;
         }
       </style>
 
