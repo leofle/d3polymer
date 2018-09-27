@@ -20,13 +20,15 @@ class MyView1 extends PolymerElement {
 
           padding: 10px;
         }
+        h1 {
+          font-size: 1.5em;
+          text-align: center;
+          color: palevioletred;
+        }
       </style>
 
       <div class="card">
-        <div class="circle">1</div>
-        <h1>View One</h1>
-        <p>Ut labores minimum atomorum pro. Laudem tibique ut has.</p>
-        <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
+        <h1>Welcome to Polymer Graph YaY! 🤘</h1>
       </div>
     `;
   }

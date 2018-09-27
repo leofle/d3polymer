@@ -42,40 +42,58 @@ class MyApp extends PolymerElement {
     return html`
       <style>
         :host {
-          --app-primary-color: #FFEB3B;
+          --app-primary-color: #FFFFFF;
           --app-secondary-color: black;
-
+          font-family: 'Avenir', Helvetica, Arial, sans-serif;
+          -webkit-font-smoothing: antialiased;
           display: block;
         }
 
         app-drawer-layout:not([narrow]) [drawer-toggle] {
           display: none;
         }
-
+        app-toolbar {
+          display: flex;
+          justify-content: center;
+          height: 100%;
+        }
         app-header {
           color: #000;
           background-color: var(--app-primary-color);
+          height: 100px;
+          box-shadow: 4px 0px 15px #ccc;
         }
 
         app-header paper-icon-button {
           --paper-icon-button-ink-color: white;
         }
-
         .drawer-list {
           margin: 0 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
 
         .drawer-list a {
           display: block;
-          padding: 0 16px;
+          padding: 10px;
           text-decoration: none;
           color: var(--app-secondary-color);
-          line-height: 40px;
+          font-size: 16px;
         }
 
         .drawer-list a.iron-selected {
           color: black;
-          font-weight: bold;
+          position: relative;
+        }
+        .drawer-list a.iron-selected:before {
+          content:'';
+          position:absolute;
+          bottom:-3px;
+          left:0;
+          width:100%;
+          height:4px;
+          background: #000;
         }
       </style>
 
@@ -86,22 +104,16 @@ class MyApp extends PolymerElement {
       </app-route>
 
       <app-drawer-layout fullbleed="" narrow="{{narrow}}">
-        <!-- Drawer content -->
-        <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
-          <app-toolbar>Menu</app-toolbar>
-          <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-            <a name="view1" href="[[rootPath]]view1">Intro</a>
-            <a name="view2" href="[[rootPath]]view2">Main</a>
-          </iron-selector>
-        </app-drawer>
 
         <!-- Main content -->
         <app-header-layout has-scrolling-region="">
 
           <app-header slot="header" condenses="" reveals="" effects="waterfall">
             <app-toolbar>
-              <paper-icon-button icon="my-icons:menu" drawer-toggle=""></paper-icon-button>
-              <div main-title="">Polymer App - Web Components</div>
+              <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+              <a name="view1" href="[[rootPath]]view1">Home</a>
+              <a name="view2" href="[[rootPath]]view2">GraphSvg</a>
+              </iron-selector>
             </app-toolbar>
           </app-header>
 
@@ -147,9 +159,9 @@ class MyApp extends PolymerElement {
     }
 
     // Close a non-persistent drawer when the page & route are changed.
-    if (!this.$.drawer.persistent) {
-      this.$.drawer.close();
-    }
+    // if (!this.$.drawer.persistent) {
+    //   this.$.drawer.close();
+    // }
   }
 
   _pageChanged(page) {
