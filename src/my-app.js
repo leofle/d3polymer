@@ -80,13 +80,14 @@ class MyApp extends PolymerElement {
           text-decoration: none;
           color: var(--app-secondary-color);
           font-size: 16px;
+          position: relative;
         }
 
         .drawer-list a.iron-selected {
           color: black;
-          position: relative;
         }
-        .drawer-list a.iron-selected:before {
+
+        .drawer-list a.iron-selected:before, .drawer-list a:hover:before {
           content:'';
           position:absolute;
           bottom:-3px;
