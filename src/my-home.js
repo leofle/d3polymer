@@ -12,6 +12,22 @@ import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import './shared-styles.js';
 
 class Home extends PolymerElement {
+  constructor() {
+    super();
+
+    this.value = 'Welcome to Polymer Graph YaY!';
+  }
+  ready() {
+    super.ready();
+    console.log(this.value)
+  }
+  toggle(string) {
+    if(string === '') {
+      return this.value;
+    }else {
+      return string;
+    }
+  }
   static get template() {
     return html`
       <style include="shared-styles">
@@ -26,8 +42,14 @@ class Home extends PolymerElement {
       </style>
 
       <div class="card">
-        <h1>Welcome to Polymer Graph YaY! 🤘</h1>
+        <h1>{{ toggle(searchString) }} 🤘</h1>
       </div>
+
+      <div class="card">
+        <label>Change the title</label>
+        <input value="{{searchString::input}}">
+      </div>
+
     `;
   }
 }
