@@ -3,7 +3,7 @@ import { scaleOrdinal } from 'd3-scale'
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 // import './shared-styles.js';
 
-class MyView2 extends PolymerElement {
+class GraphSvg extends PolymerElement {
 
   static get properties() {
     return {
@@ -193,4 +193,4 @@ class MyView2 extends PolymerElement {
 
 }
 
-window.customElements.define('my-view2', MyView2);
+window.customElements.define('my-graph', GraphSvg);
