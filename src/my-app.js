@@ -44,6 +44,7 @@ class MyApp extends PolymerElement {
         :host {
           --app-primary-color: #FFFFFF;
           --app-secondary-color: black;
+          --heder-height: 65px;
           font-family: 'Avenir', Helvetica, Arial, sans-serif;
           -webkit-font-smoothing: antialiased;
           display: block;
@@ -60,7 +61,7 @@ class MyApp extends PolymerElement {
         app-header {
           color: #000;
           background-color: var(--app-primary-color);
-          height: 100px;
+          height: var(--heder-height);
           box-shadow: 4px 0px 15px #ccc;
         }
 
