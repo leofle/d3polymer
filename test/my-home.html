@@ -20,22 +20,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script src="../node_modules/wct-browser-legacy/browser.js"></script>
 
     <!-- Import the element to test -->
-    <script type="module" src="../src/my-view1.js"></script>
+    <script type="module" src="../src/components/my-home.js"></script>
   </head>
   <body>
     <test-fixture id="BasicView">
       <template>
-        <my-view1></my-view1>
+        <my-home></my-home>
       </template>
     </test-fixture>
 
     <script type="module">
-      suite('my-view1 tests', function() {
+      suite('my-home tests', function() {
         test('Number in circle should be 1', function() {
           var myView = fixture('BasicView');
-          var circle = myView.shadowRoot.querySelector('.circle');
+          var title = myView.shadowRoot.querySelector('h1');
 
-          assert.equal(circle.textContent, '1');
+          assert.equal(title.textContent, 'Welcome to Polymer Graph YaY! 🤘');
         });
       });
     </script>

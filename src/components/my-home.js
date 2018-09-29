@@ -9,23 +9,26 @@
  */
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
-import './shared-styles.js';
+import { connect } from 'pwa-helpers/connect-mixin.js';
+import { changetitle } from '../actions/changetitle';
+import { store } from '../store';
+import '../shared-styles.js';
 
-class Home extends PolymerElement {
+class Home extends connect(store)(PolymerElement) {
   constructor() {
     super();
 
-    this.value = 'Welcome to Polymer Graph YaY!';
+    this.value = store.getState().changetitle.title;
+    localStorage.setItem('homeTitle', JSON.stringify(store.getState().changetitle.title));
   }
   ready() {
     super.ready();
-    console.log(this.value)
   }
   toggle(string) {
-    if(string === '') {
-      this.value = 'Welcome to Polymer Graph YaY!';
+    if(!string) {
+      this.value = JSON.parse(localStorage.getItem('homeTitle'));
     }else {
-      this.value = string;
+      this.value = store.dispatch(changetitle(string)).title;
     }
   }
   static get template() {
@@ -39,6 +42,18 @@ class Home extends PolymerElement {
           text-align: center;
           color: palevioletred;
         }
+        .inputStyle {
+          height: 38px;
+          border-radius: 8px;
+          border: 1px solid #ccc;
+          width: calc(100% - 134px);
+          line-height: 1.5;
+          font-size: 18px;
+          padding: 0 5px;
+        }
+        .inputStyle:focus {
+          outline: none;
+        }
       </style>
 
       <div class="card">
@@ -46,12 +61,23 @@ class Home extends PolymerElement {
       </div>
 
       <div class="card">
-        <label>Change the title</label><br/>
-        <input value="{{searchString::input}}">
+        <label>Change the title </label>
+        <input class="inputStyle" value="{{searchString::input}}">
       </div>
 
     `;
   }
+
+  static get properties() { return {
+    // This is the data from the store.
+    _title: { type: String }
+  }}
+
+  // This is called every time something is updated in the store.
+  _stateChanged(state) {
+    this._title = state.changetitle.title;
+  }
+
 }
 
 window.customElements.define('my-home', Home);

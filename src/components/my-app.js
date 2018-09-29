@@ -10,6 +10,8 @@
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { setPassiveTouchGestures, setRootPath } from '@polymer/polymer/lib/utils/settings.js';
+import { connect } from 'pwa-helpers/connect-mixin.js';
+import { installRouter } from 'pwa-helpers/router.js';
 import '@polymer/app-layout/app-drawer/app-drawer.js';
 import '@polymer/app-layout/app-drawer-layout/app-drawer-layout.js';
 import '@polymer/app-layout/app-header/app-header.js';
@@ -22,7 +24,7 @@ import '@polymer/iron-pages/iron-pages.js';
 import '@polymer/iron-selector/iron-selector.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import './my-icons.js';
-
+import { store } from '../store.js';
 // Gesture events like tap and track generated from touch will not be
 // preventable, allowing for better scrolling performance.
 setPassiveTouchGestures(true);
@@ -30,14 +32,15 @@ setPassiveTouchGestures(true);
 // Set Polymer's root path to the same value we passed to our service worker
 // in `index.html`.
 setRootPath(MyAppGlobals.rootPath);
-
-class MyApp extends PolymerElement {
-    constructor(){
+class MyApp extends connect(store)(PolymerElement) {
+  constructor(){
     super();
 
+    this.title = store.title;
     this.width = window.innerWidth;
     this.height = window.innerHeight;
   }
+  
   static get template() {
     return html`
       <style>
@@ -120,7 +123,7 @@ class MyApp extends PolymerElement {
           </app-header>
 
           <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
-            <my-home name="home"></my-home>
+            <my-home name="home" title="[[ title ]]"></my-home>
             <my-graph name="graphsvg" width=[[width]] height=[[height]]></my-graph>
             <my-view404 name="view404"></my-view404>
           </iron-pages>
@@ -136,6 +139,8 @@ class MyApp extends PolymerElement {
         reflectToAttribute: true,
         observer: '_pageChanged'
       },
+      title: {type: String},
+      _page: { type: String },
       routeData: Object,
       subroute: Object
     };
@@ -182,6 +187,25 @@ class MyApp extends PolymerElement {
         import('./my-view404.js');
         break;
     }
+  }
+
+  firstUpdated() {
+    installRouter((location) => store.dispatch(navigate(window.decodeURIComponent(location.pathname))));
+  }
+
+  updated(changedProps) {
+    if (changedProps.has('_page')) {
+      const pageTitle = this.appTitle + ' - ' + this._page;
+      updateMetadata({
+        title: pageTitle,
+        description: pageTitle
+        // This object also takes an image property, that points to an img src.
+      });
+    }
+  }
+
+  _stateChanged(state) {
+    this._page = state.app.page;
   }
 }
 
