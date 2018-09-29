@@ -37,23 +37,6 @@ class Home extends connect(store)(PolymerElement) {
         :host {
           display: block;
         }
-        h1 {
-          font-size: 1.5em;
-          text-align: center;
-          color: palevioletred;
-        }
-        .inputStyle {
-          height: 38px;
-          border-radius: 8px;
-          border: 1px solid #ccc;
-          width: calc(100% - 134px);
-          line-height: 1.5;
-          font-size: 18px;
-          padding: 0 5px;
-        }
-        .inputStyle:focus {
-          outline: none;
-        }
       </style>
 
       <div class="card">
