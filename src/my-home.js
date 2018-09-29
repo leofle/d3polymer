@@ -23,9 +23,9 @@ class Home extends PolymerElement {
   }
   toggle(string) {
     if(string === '') {
-      return this.value;
+      this.value = 'Welcome to Polymer Graph YaY!';
     }else {
-      return string;
+      this.value = string;
     }
   }
   static get template() {
@@ -42,11 +42,11 @@ class Home extends PolymerElement {
       </style>
 
       <div class="card">
-        <h1>{{ toggle(searchString) }} 🤘</h1>
+        <h1>{{ toggle(searchString) }} {{ value }} 🤘</h1>
       </div>
 
       <div class="card">
-        <label>Change the title</label>
+        <label>Change the title</label><br/>
         <input value="{{searchString::input}}">
       </div>
 
