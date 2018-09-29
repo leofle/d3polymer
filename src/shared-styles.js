@@ -24,6 +24,7 @@ $_documentContainer.innerHTML = `<dom-module id="shared-styles">
         display: flex;
         justify-content: center;
         align-items: center;
+        word-break: break-word;
       }
       .imgcard img {
         margin-left: 5px;
