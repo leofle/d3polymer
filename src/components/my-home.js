@@ -39,8 +39,9 @@ class Home extends connect(store)(PolymerElement) {
         }
       </style>
 
-      <div class="card">
-        <h1>{{ toggle(searchString) }} {{ value }} 🤘</h1>
+      <div class="card imgcard">
+        <h1>{{ toggle(searchString) }} {{ value }} </h1>
+        <img src="../../images/logo.png" width="20px" />
       </div>
 
       <div class="card">

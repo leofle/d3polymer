@@ -20,6 +20,14 @@ $_documentContainer.innerHTML = `<dom-module id="shared-styles">
         margin: 0px;
       }
 
+      .imgcard {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .imgcard img {
+        margin-left: 5px;
+      }
       .card {
         margin: 24px;
         padding: 16px;
@@ -46,6 +54,7 @@ $_documentContainer.innerHTML = `<dom-module id="shared-styles">
         text-align: center;
         color: palevioletred;
       }
+
       .inputStyle {
         height: 38px;
         border-radius: 8px;
