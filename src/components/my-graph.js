@@ -88,7 +88,6 @@ class GraphSvg extends PolymerElement {
       bilinks.push([s, i, t]);
     });
     let linksg = this.shadowRoot.querySelector("g.links");
-    console.log(linksg)
     let link = d3.select(linksg)
       .selectAll("links")
       .data(bilinks)
@@ -96,7 +95,6 @@ class GraphSvg extends PolymerElement {
       .attr("class", "link");
 
     let nodesg = this.shadowRoot.querySelector("g.nodes");
-    console.log(nodesg)
     let node = d3.select(nodesg)
       .selectAll("nodes")
       .data(nodes.filter(d =>d.id))

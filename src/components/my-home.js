@@ -10,6 +10,7 @@
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { connect } from 'pwa-helpers/connect-mixin.js';
+import './my-donut.js';
 import { changetitle } from '../actions/changetitle';
 import { store } from '../store';
 import '../shared-styles.js';
@@ -48,7 +49,8 @@ class Home extends connect(store)(PolymerElement) {
         <label>Change the title </label>
         <input class="inputStyle" value="{{searchString::input}}">
       </div>
-
+      
+      <my-donut></my-donut>
     `;
   }
 

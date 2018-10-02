@@ -23,6 +23,9 @@
     "@polymer/paper-icon-button": "^3.0.0-pre.15",
     "@polymer/polymer": "^3.0.0",
     "@webcomponents/webcomponentsjs": "^2.0.0",
+    "d3-dsv": "^1.0.10",
+    "d3-shape": "^1.2.2",
+    "polymer-svg-template": "^1.0.2",
     "pwa-helpers": "^0.8.2",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0"
