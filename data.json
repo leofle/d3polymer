@@ -1,30 +1,34 @@
 [
   {
-    "age": "<5",
-    "population": 2704659
+    "team": "brazil",
+    "wins": 5
   },
   {
-    "age": "5-13",
-    "population": 4499890
+    "team": "germany",
+    "wins": 4
   },
   {
-    "age": "14-17",
-    "population": 2159981
+    "team": "italy",
+    "wins": 4
   },
   {
-    "age": "18-24",
-    "population": 3853788
+    "team": "argentina",
+    "wins": 2
   },
   {
-    "age": "25-44",
-    "population": 14106543
+    "team": "france",
+    "wins": 2
   },
   {
-    "age": "45-64",
-    "population": 8819342
+    "team": "uruguay",
+    "wins": 2
   },
   {
-    "age": "≥65",
-    "population": 612463
+    "team": "england",
+    "wins": 1
+	},
+	{
+    "team": "spain",
+    "wins": 1
   }
 ]

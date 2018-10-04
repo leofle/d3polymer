@@ -40,7 +40,7 @@ class Donut extends connect(store)(PolymerElement) {
 
 		let pie = d3.pie()
 			.sort(null)
-			.value(function (d) { return d.population; });
+			.value(function (d) { return d.wins; });
 
 		const svgroot = this.shadowRoot.querySelector('#chart-area')
 		let svg = d3.select(svgroot).append("svg")
@@ -58,16 +58,16 @@ class Donut extends connect(store)(PolymerElement) {
 
 			g.append("path")
 				.attr("d", arc)
-				.style("fill", function (d) { return color(d.data.age); });
+				.style("fill", function (d) { return color(d.data.team); });
 
 			g.append("text")
 				.attr("transform", function (d) { return "translate(" + arc.centroid(d) + ")"; })
 				.attr("dy", ".35em")
-				.text(function (d) { return d.data.age; });
+				.text(function (d) { return d.data.team; });
 		});
 
 		function type(d) {
-			d.population = +d.population;
+			d.wins = +d.wins;
 			return d;
 		}
 	}
