@@ -50,7 +50,7 @@ class Home extends connect(store)(PolymerElement) {
         <input class="inputStyle" value="{{searchString::input}}">
       </div>
       
-      <my-donut></my-donut>
+      <my-donut width="960" height="500"></my-donut>
     `;
   }
 

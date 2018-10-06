@@ -1,5 +1,7 @@
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { connect } from 'pwa-helpers/connect-mixin.js';
+import { changecountry } from '../actions/changecountry';
+import { changewins } from '../actions/changewins';
 import { store } from '../store';
 import * as d3 from "d3";
 import { scaleOrdinal } from "d3-scale";
@@ -12,6 +14,8 @@ class Donut extends connect(store)(PolymerElement) {
 		super();
 
 		this.value = store.getState().changetitle.title;
+		this.country = store.getState().changecountry.country;
+		this.wins = store.getState().changewins.wins;
 	}
 	static get properties() {
 		return {
@@ -25,9 +29,22 @@ class Donut extends connect(store)(PolymerElement) {
 	}
 	ready() {
 		super.ready();
-		this.setGraph();
 	}
-	setGraph() {
+	getData(){
+		d3.json("data.json").then(data => {
+			let res = [];
+			if(this.country.length > 0 && this.wins){
+				res = [...data, 
+					{"team": this.country,
+						"wins": this.wins}]
+			}else {
+				res = data;
+			}
+
+			this.setGraph(res);
+		});
+	}
+	setGraph(graphData) {
 		let width = 960,
 			height = 500,
 			radius = Math.min(width, height) / 2;
@@ -43,16 +60,15 @@ class Donut extends connect(store)(PolymerElement) {
 			.value(function (d) { return d.wins; });
 
 		const svgroot = this.shadowRoot.querySelector('#chart-area')
+		d3.select(svgroot).selectAll("svg").remove();
 		let svg = d3.select(svgroot).append("svg")
 			.attr("width", width)
 			.attr("height", height)
 			.append("g")
 			.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-			d3.json("data.json").then(data => {
-
 			let g = svg.selectAll(".arc")
-				.data(pie(data))
+				.data(pie(graphData))
 				.enter().append("g")
 				.attr("class", "arc");
 
@@ -64,14 +80,14 @@ class Donut extends connect(store)(PolymerElement) {
 				.attr("transform", function (d) { return "translate(" + arc.centroid(d) + ")"; })
 				.attr("dy", ".35em")
 				.text(function (d) { return d.data.team; });
-		});
 
-		function type(d) {
-			d.wins = +d.wins;
-			return d;
-		}
 	}
-
+	changeCountry(string){
+		this.country = store.dispatch(changecountry(string)).country;
+	}
+	changeWins(string){
+		this.wins = Number(store.dispatch(changewins(string)).wins);
+	}
 	static get template() {
 		return html`
 		<style>
@@ -104,6 +120,10 @@ class Donut extends connect(store)(PolymerElement) {
 				<div id="chart-area">
      
 				</div>
+				<input type="text" value="{{countryString::input}}"/>
+				<input type="text" value="{{winsString::input}}"/>
+				<button>add</button>
+				<p>{{changeWins(winsString)}} {{ country }} {{ wins }} {{changeCountry(countryString)}}</p>
 			</div>
     `;
 	}
@@ -112,6 +132,9 @@ class Donut extends connect(store)(PolymerElement) {
 	// This is called every time something is updated in the store.
 	_stateChanged(state) {
 		this._title = state.changetitle.title;
+		this._country = state.changecountry.country;
+		this.wins = state.changewins.wins;
+		this.getData();
 	}
 
 }
