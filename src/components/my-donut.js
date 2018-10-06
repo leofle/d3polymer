@@ -40,8 +40,8 @@ class Donut extends connect(store)(PolymerElement) {
 			this.setGraph(this.dataGraph);
 		}
 	}
-	addToGraph() {
-
+	addCountry() {
+		if(!this.country || !this.wins) return;
 		let res = {
 			"team": this.country,
 			"wins": this.wins
@@ -149,7 +149,7 @@ class Donut extends connect(store)(PolymerElement) {
 				<div class="flex">
 					<input type="text" placeholder="Add Country" value="{{countryString::input}}"/>
 					<input type="text" placeholder="Add Wins" value="{{winsString::input}}"/>
-					<button on-click="addToGraph">add</button>
+					<button on-click="addCountry">add</button>
 				</div>
 				<p>{{changeWins(winsString)}} {{ country }} {{ wins }} {{changeCountry(countryString)}}</p>
 			</div>
