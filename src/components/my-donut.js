@@ -119,15 +119,38 @@ class Donut extends connect(store)(PolymerElement) {
 			.arc path {
 				stroke: #fff;
 			}
+			button {
+				background: cyan;
+				height: 40px;
+    		border: none;
+    		border-radius: 6px;
+				margin: 4px;
+				outline:none;
+			}
+			input {
+				height: 33px;
+    		outline: none;
+    		line-height: 30px;
+    		font-size: 14px;
+				margin: 2px;
+				padding: 0 10px;
+			}
+			.flex {
+				display: flex;
+				flex-flow: row;
+    		align-items: center;
+			}
 		</style>
 
 			<div class="card">
 				<div id="chart-area">
      
 				</div>
-				<input type="text" value="{{countryString::input}}"/>
-				<input type="text" value="{{winsString::input}}"/>
-				<button on-click="addToGraph">add</button>
+				<div class="flex">
+					<input type="text" placeholder="Add Country" value="{{countryString::input}}"/>
+					<input type="text" placeholder="Add Wins" value="{{winsString::input}}"/>
+					<button on-click="addToGraph">add</button>
+				</div>
 				<p>{{changeWins(winsString)}} {{ country }} {{ wins }} {{changeCountry(countryString)}}</p>
 			</div>
     `;
