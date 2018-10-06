@@ -36,7 +36,6 @@ let initialState = [
   }
 ]
 const addgraphdata = (state, action) => {
-	console.log(state,action)
   switch (action.type) {
     case ADDGRAPHDATA:
       return [...state, action.addgraphdata] ;
