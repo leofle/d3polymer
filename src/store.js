@@ -21,6 +21,7 @@ import app from './reducers/app.js';
 import changetitle from './reducers/changetitle.js';
 import changecountry from './reducers/changecountry.js';
 import changewins from './reducers/changewins.js';
+import addgraphdata from './reducers/addgraphdata.js';
 
 // Sets up a Chrome extension for time travel debugging.
 // See https://github.com/zalmoxisus/redux-devtools-extension for more information.
@@ -41,5 +42,6 @@ store.addReducers({
   app,
   changetitle,
   changecountry,
-  changewins
+  changewins,
+  addgraphdata
 });

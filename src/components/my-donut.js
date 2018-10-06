@@ -2,6 +2,7 @@ import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { connect } from 'pwa-helpers/connect-mixin.js';
 import { changecountry } from '../actions/changecountry';
 import { changewins } from '../actions/changewins';
+import { addgraphdata } from '../actions/addgraphdata';
 import { store } from '../store';
 import * as d3 from "d3";
 import { scaleOrdinal } from "d3-scale";
@@ -13,6 +14,7 @@ class Donut extends connect(store)(PolymerElement) {
 	constructor() {
 		super();
 
+		this.dataGraph = store.getState().addgraphdata;
 		this.value = store.getState().changetitle.title;
 		this.country = store.getState().changecountry.country;
 		this.wins = store.getState().changewins.wins;
@@ -29,20 +31,23 @@ class Donut extends connect(store)(PolymerElement) {
 	}
 	ready() {
 		super.ready();
+		this.getData();
 	}
-	getData(){
-		d3.json("data.json").then(data => {
-			let res = [];
-			if(this.country.length > 0 && this.wins){
-				res = [...data, 
-					{"team": this.country,
-						"wins": this.wins}]
-			}else {
-				res = data;
-			}
+	getData(newData) {
+		if (newData) {
+			this.setGraph(newData);
+		} else {
+			this.setGraph(this.dataGraph);
+		}
+	}
+	addToGraph() {
 
-			this.setGraph(res);
-		});
+		let res = {
+			"team": this.country,
+			"wins": this.wins
+		}
+		this.dataGraph = [...this.dataGraph, store.dispatch(addgraphdata(res)).addgraphdata];
+		this.setGraph(this.dataGraph);
 	}
 	setGraph(graphData) {
 		let width = 960,
@@ -67,25 +72,25 @@ class Donut extends connect(store)(PolymerElement) {
 			.append("g")
 			.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-			let g = svg.selectAll(".arc")
-				.data(pie(graphData))
-				.enter().append("g")
-				.attr("class", "arc");
+		let g = svg.selectAll(".arc")
+			.data(pie(graphData))
+			.enter().append("g")
+			.attr("class", "arc");
 
-			g.append("path")
-				.attr("d", arc)
-				.style("fill", function (d) { return color(d.data.team); });
+		g.append("path")
+			.attr("d", arc)
+			.style("fill", function (d) { return color(d.data.team); });
 
-			g.append("text")
-				.attr("transform", function (d) { return "translate(" + arc.centroid(d) + ")"; })
-				.attr("dy", ".35em")
-				.text(function (d) { return d.data.team; });
+		g.append("text")
+			.attr("transform", function (d) { return "translate(" + arc.centroid(d) + ")"; })
+			.attr("dy", ".35em")
+			.text(function (d) { return d.data.team; });
 
 	}
-	changeCountry(string){
+	changeCountry(string) {
 		this.country = store.dispatch(changecountry(string)).country;
 	}
-	changeWins(string){
+	changeWins(string) {
 		this.wins = Number(store.dispatch(changewins(string)).wins);
 	}
 	static get template() {
@@ -122,7 +127,7 @@ class Donut extends connect(store)(PolymerElement) {
 				</div>
 				<input type="text" value="{{countryString::input}}"/>
 				<input type="text" value="{{winsString::input}}"/>
-				<button>add</button>
+				<button on-click="addToGraph">add</button>
 				<p>{{changeWins(winsString)}} {{ country }} {{ wins }} {{changeCountry(countryString)}}</p>
 			</div>
     `;
@@ -133,8 +138,8 @@ class Donut extends connect(store)(PolymerElement) {
 	_stateChanged(state) {
 		this._title = state.changetitle.title;
 		this._country = state.changecountry.country;
-		this.wins = state.changewins.wins;
-		this.getData();
+		this._wins = state.changewins.wins;
+		this._dataGraph = state.addgraphdata.addgraphdata
 	}
 
 }
