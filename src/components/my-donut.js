@@ -167,7 +167,7 @@ class Donut extends connect(store)(PolymerElement) {
 				</div>
 				<div class="flex">
 					<input type="text" placeholder="Add Country" value="{{countryString::input}}"/>
-					<input type="text" placeholder="Add Wins" value="{{winsString::input}}"/>
+					<input type="number" placeholder="Add Wins" value="{{winsString::input}}"/>
 					<button class="btn" on-click="addCountry">Add</button>
 					<button class="btn primary" on-click="removeCountry">Remove</button>
 				</div>
