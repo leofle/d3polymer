@@ -125,15 +125,23 @@ class Donut extends connect(store)(PolymerElement) {
 				stroke: #fff;
 			}
 			.btn {
-				background: cyan;
+				background: greenyellow;
 				height: 40px;
     		border: none;
     		border-radius: 6px;
 				margin: 4px;
 				outline:none;
+				font-weight: bold;
+				font-size: 13px;
+				width: 100px;
+			}
+			.btn:hover {
+				background: #000;
+				color: #fff;
+				cursor: pointer;
 			}
 			.primary {
-				background: hotpink;
+				background: tomato;
 			}
 			input {
 				height: 33px;
