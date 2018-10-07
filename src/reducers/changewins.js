@@ -1,7 +1,7 @@
 
 import { CHANGEWINS } from '../actions/changewins.js';
 
-const changewins = (state = {wins: 0}, action) => {
+const changewins = (state = {wins: null}, action) => {
   switch (action.type) {
     case CHANGEWINS:
       return {
