@@ -51,8 +51,8 @@ class Donut extends connect(store)(PolymerElement) {
 	}
 	removeCountry() {
     if(!this.country) return;
-		this.dataGraph = this.dataGraph.filter( el => el.team !== this.country );
-		this.setGraph(this.dataGraph);
+		let newData = this.dataGraph.filter( el => el.team !== this.country );
+		this.setGraph(newData);
   }
 	setGraph(graphData) {
 		let width = this.width,
