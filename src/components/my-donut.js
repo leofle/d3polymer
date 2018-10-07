@@ -49,6 +49,11 @@ class Donut extends connect(store)(PolymerElement) {
 		this.dataGraph = [...this.dataGraph, store.dispatch(addgraphdata(res)).addgraphdata];
 		this.setGraph(this.dataGraph);
 	}
+	removeCountry() {
+    if(!this.country) return;
+		this.dataGraph = this.dataGraph.filter( el => el.team !== this.country );
+		this.setGraph(this.dataGraph);
+  }
 	setGraph(graphData) {
 		let width = this.width,
 			height = this.height,
@@ -119,13 +124,16 @@ class Donut extends connect(store)(PolymerElement) {
 			.arc path {
 				stroke: #fff;
 			}
-			button {
+			.btn {
 				background: cyan;
 				height: 40px;
     		border: none;
     		border-radius: 6px;
 				margin: 4px;
 				outline:none;
+			}
+			.primary {
+				background: hotpink;
 			}
 			input {
 				height: 33px;
@@ -149,7 +157,8 @@ class Donut extends connect(store)(PolymerElement) {
 				<div class="flex">
 					<input type="text" placeholder="Add Country" value="{{countryString::input}}"/>
 					<input type="text" placeholder="Add Wins" value="{{winsString::input}}"/>
-					<button on-click="addCountry">add</button>
+					<button class="btn" on-click="addCountry">Add</button>
+					<button class="btn primary" on-click="removeCountry">Remove</button>
 				</div>
 				<p>{{changeWins(winsString)}} {{ country }} {{ wins }} {{changeCountry(countryString)}}</p>
 			</div>
