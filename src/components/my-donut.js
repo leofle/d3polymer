@@ -50,8 +50,8 @@ class Donut extends connect(store)(PolymerElement) {
 		this.setGraph(this.dataGraph);
 	}
 	setGraph(graphData) {
-		let width = 960,
-			height = 500,
+		let width = this.width,
+			height = this.height,
 			radius = Math.min(width, height) / 2;
 
 		let color = scaleOrdinal(d3.schemeSet3)
