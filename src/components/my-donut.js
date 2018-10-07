@@ -48,6 +48,8 @@ class Donut extends connect(store)(PolymerElement) {
 		}
 		this.dataGraph = [...this.dataGraph, store.dispatch(addgraphdata(res)).addgraphdata];
 		this.setGraph(this.dataGraph);
+		this.country = '';
+		this.wins = null;
 	}
 	removeCountry() {
     if(!this.country) return;
@@ -154,7 +156,8 @@ class Donut extends connect(store)(PolymerElement) {
 			.flex {
 				display: flex;
 				flex-flow: row;
-    		align-items: center;
+				align-items: center;
+				justify-content: center;
 			}
 		</style>
 
